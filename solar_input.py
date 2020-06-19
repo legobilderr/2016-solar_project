@@ -19,12 +19,16 @@ def read_space_objects_data_from_file(input_filename):
             if len(line.strip()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
             object_type = line.split()[0].lower()
-            if object_type == "star":  # FIXME: do the same for planet
+            if object_type == "star": 
                 star = Star()
                 parse_star_parameters(line, star)
                 objects.append(star)
+            if object_type == "planet": 
+                planet = Planet()
+                parse_planet_parameters(line,planet)
+                objects.append(planet)
             else:
-                print("Unknown space object")
+                print("Unknown space object",line)
 
     return objects
 
@@ -43,8 +47,22 @@ def parse_star_parameters(line, star):
     **line** — строка с описание звезды.
     **star** — объект звезды.
     """
+    list_lines_star=line.split( )
+    for i in range (len(list_lines_star)):
+        try:
+            list_lines_star[i]=float(list_lines_star[i])
+        except ValueError:
+            pass
 
-    pass  # FIXME: not done yet
+    list_values_of_star=list_lines_star
+    star.R=list_values_of_star[1]
+    star.color=list_values_of_star[2]
+    star.m=list_values_of_star[3]
+    star.x=list_values_of_star[4]
+    star.y=list_values_of_star[5]
+    star.Vx=list_values_of_star[6]
+    star.Vy=list_values_of_star[7]
+    # pass  # FIXME: not done yet
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -61,7 +79,23 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    pass  # FIXME: not done yet...
+    list_lines_planet=line.split( )
+    for i in range (len(list_lines_planet)):
+        try:
+            list_lines_planet[i]=float(list_lines_planet[i])
+        except ValueError:
+            pass
+
+    list_values_of_planet=list_lines_planet
+    planet.R=list_values_of_planet[1]
+    planet.color=list_values_of_planet[2]
+    planet.m=list_values_of_planet[3]
+    planet.x=list_values_of_planet[4]
+    planet.y=list_values_of_planet[5]
+    planet.Vx=list_values_of_planet[6]
+    planet.Vy=list_values_of_planet[7]
+
+    # pass  # FIXME: not done yet...
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
